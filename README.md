@@ -1,8 +1,4 @@
-# Proyecto de Análisis de Inmuebles en Bogotá
 
-Este proyecto realiza un análisis exhaustivo de datos de inmuebles en arriendo en Bogotá, Colombia, utilizando técnicas de machine learning para modelar precios, clasificar propiedades y segmentar el mercado. El dataset consta de 5567 registros con variables físicas, geográficas y de servicios cercanos.
-
-## 7. Metodología
 
 ## 7. Metodología
 
@@ -130,7 +126,6 @@ Este proyecto realiza un análisis exhaustivo de datos de inmuebles en arriendo 
 ## 13. Referencias
 
 ### 13.1. Artículos académicos
-- Pedregosa et al. (2011). Scikit-learn: Machine Learning in Python. JMLR. https://jmlr.org/papers/v12/pedregosa11a.html
 
 ### 13.2. Datasets
 - Datos de MetroCuadrado (inmuebles_metrocuadrado_limpio.csv): 5567 registros de inmuebles en Bogotá.

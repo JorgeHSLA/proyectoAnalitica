@@ -559,17 +559,14 @@ proyectoAnalitica/
 - **`manzanaestratificacion.gpkg`**: Polígonos de manzanas con asignación de estrato
 - Usados para spatial join: asignar estrato a coordenadas lat/lon de inmuebles
 
-**Flujo de datos (pipeline)**:
+**Flujo de trabajo resumido:**
 
-```
-[API MetroCuadrado] → [apiMetroCuadrado.py] → datosDeMetroCuadrado.json
-                                                       ↓
-[Datos públicos Bogotá] → [script_*.py] → inmuebles_*_limpio.csv
-                                                       ↓
-[Todos los datasets] → [conbinarDataLimpia.py] → inmuebles_combinado_limpio.csv
-                                                       ↓
-                          [analisis_patrones.py] → Modelos + Gráficos (eda_plots/)
-```
+- Convertimos los archivos JSON a CSV usando:
+  - `apiMetroCuadrado.py` (para datosDeMetroCuadrado.json → datosDeMetroCuadrado.csv)
+  - `script_metrocuadrado.py` y `script_apartamentos_bogota{2-5}.py` (para los otros archivos de apartamentos)
+- Juntamos toda la data limpia con `conbinarDataLimpia.py` para obtener `inmuebles_combinado_limpio.csv`.
+- Ejecutamos `eda_inmuebles.py` para análisis exploratorio y generación de gráficos descriptivos.
+- Ejecutamos `analisis_patrones.py` para análisis avanzado, modelado y generación de hallazgos y métricas.
 
 ### 12.2. Tablas y gráficos generados
 
@@ -638,7 +635,7 @@ proyectoAnalitica/
 | **dist_transmilenio_cercana_m** | Float    | Distancia a estación de TransMilenio más cercana                            | 5 - 2273                | Metros (m)   |
 | **dist_bus_cercana_m**          | Float    | Distancia a parada de bus más cercana                                       | 2 - 518                 | Metros (m)   |
 | **dist_farmacia_cercana_m**     | Float    | Distancia a farmacia más cercana                                            | 1 - 723                 | Metros (m)   |
-| **dist_supermercado_cercano_m** | Float    | Distancia a supermercado más cercano                                        | 4 - 638                 | Metros (m)   |
+| **dist_supermercado_cercano_m** | Float    | Distancia a supermercado más cercana                                        | 4 - 638                 | Metros (m)   |
 | **dist_via_principal_m**        | Float    | Distancia a vía principal (avenida) más cercana                             | 0 - 1234                | Metros (m)   |
 | **num_farmacias_120m**          | Integer  | Cantidad de farmacias en radio de 120m                                      | 0 - 15                  | Unidades     |
 | **num_colegios_120m**           | Integer  | Cantidad de colegios en radio de 120m                                       | 0 - 8                   | Unidades     |
@@ -665,26 +662,6 @@ proyectoAnalitica/
 ---
 
 ## 13. Referencias
-
-### 13.1. Artículos académicos
-
-1. Breiman, L. (2001). **"Random Forests"**. *Machine Learning*, 45(1), 5-32. 
-   - Paper fundacional del algoritmo Random Forest
-   - DOI: 10.1023/A:1010933404324
-
-2. Hastie, T., Tibshirani, R., & Friedman, J. (2009). **"The Elements of Statistical Learning: Data Mining, Inference, and Prediction"** (2nd ed.). Springer.
-   - Capítulo 15: Random Forests
-   - Disponible en: https://hastie.su.domains/ElemStatLearn/
-
-3. Molnar, C. (2022). **"Interpretable Machine Learning: A Guide for Making Black Box Models Explainable"** (2nd ed.).
-   - Capítulo sobre Feature Importance en Random Forest
-   - Disponible en: https://christophm.github.io/interpretable-ml-book/
-
-4. Sirmans, S., Macpherson, D., & Zietz, E. (2005). **"The Composition of Hedonic Pricing Models"**. *Journal of Real Estate Literature*, 13(1), 3-43.
-   - Fundamentación teórica de modelos hedónicos para valuación inmobiliaria
-
-5. Zurada, J., Levitan, A., & Guan, J. (2011). **"A Comparison of Regression and Artificial Intelligence Methods in a Mass Appraisal Context"**. *Journal of Real Estate Research*, 33(3), 349-388.
-   - Comparación de ML vs. métodos tradicionales en valuación de propiedades
 
 ### 13.2. Datasets y fuentes de datos
 
@@ -775,15 +752,7 @@ pip install pandas numpy scikit-learn matplotlib seaborn geopandas osmnx geopy r
 
 1. **Proceso de Extracción de Datos**:
    - URL: https://youtu.be/mdHdsDXJUTo
-   - Duración: [Completar]
-   - Descripción: Demostración completa del proceso de extracción de datos desde la API de MetroCuadrado, incluyendo manejo de paginación, limpieza de datos, geocodificación de direcciones y enriquecimiento con datos geoespaciales de Bogotá.
-   - Temas cubiertos:
-     - Configuración de requests a API MetroCuadrado
-     - Parseo de JSON y conversión a DataFrames
-     - Geocodificación con Geopy
-     - Spatial joins con GeoPackages (estratos)
-     - Cálculo de distancias y conteos de POIs usando OSMnx
-
+   - Descripción: Demostración completa del proceso de extracción de datos
 **Tutoriales y guías**:
 
 1. **Scikit-learn User Guide - Ensemble Methods**:
@@ -794,27 +763,7 @@ pip install pandas numpy scikit-learn matplotlib seaborn geopandas osmnx geopy r
    - URL: https://realpython.com/lessons/random-forest-classifier/
    - Tutorial práctico con ejemplos de código
 
-3. **Towards Data Science - Feature Importance**:
-   - Artículo: "Explaining Feature Importance by example of a Random Forest"
-   - URL: https://towardsdatascience.com/explaining-feature-importance-by-example-of-a-random-forest-d9166011959e
 
-4. **Documentación de OSMnx**:
-   - URL: https://osmnx.readthedocs.io/en/stable/
-   - Ejemplos de extracción de POIs: https://osmnx.readthedocs.io/en/stable/user-reference.html#module-osmnx.features
-
-**Contexto de Bogotá**:
-
-1. **Secretaría Distrital de Planeación**:
-   - Portal: https://www.sdp.gov.co/
-   - Información sobre estratificación socioeconómica en Bogotá
-
-2. **TransMilenio S.A.**:
-   - Portal: https://www.transmilenio.gov.co/
-   - Mapa de rutas y estaciones
-
-3. **Alcaldía Mayor de Bogotá - Datos Abiertos**:
-   - Portal: https://datosabiertos.bogota.gov.co/
-   - Catálogo de datasets sobre vivienda, transporte, servicios
 
 **Repositorio del proyecto**:
 - **GitHub**: https://github.com/JorgeHSLA/proyectoAnalitica
@@ -823,15 +772,3 @@ pip install pandas numpy scikit-learn matplotlib seaborn geopandas osmnx geopy r
   - Dataset `inmuebles_combinado_limpio.csv`
   - Gráficos generados (`eda_plots/`)
   - README con instrucciones de ejecución
-
-**Contacto**:
-- **Autor**: Jorge Hernán Silva López Ardila
-- **Email**: [Agregar email]
-- **LinkedIn**: [Agregar perfil]
-- **Institución**: [Agregar universidad/entidad]
-
----
-
-**Fin del documento**
-
-*Última actualización: Noviembre 22, 2025*

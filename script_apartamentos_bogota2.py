@@ -162,12 +162,18 @@ df['Valor_Arriendo_SM'] = df['Valor_Arriendo_num'] / df['salario_minimo_cop']
 # Mapear columnas
 df['Valor Arriendo'] = df['mvalorarriendo']
 df['Area Construida'] = df['mareac']
+df['Cuartos'] = df['mnrocuartos'].fillna(0).astype(int)
+df['Banos'] = df['mnrobanos'].fillna(0).astype(int)
+df['Garajes'] = df['mnrogarajes'].fillna(0).astype(int)
 
 # Columnas finales
 columnas_finales = [
     "Valor Arriendo",
     "Valor_Arriendo_SM",
     "Area Construida",
+    "Cuartos",
+    "Banos",
+    "Garajes",
     "Estrato",
     "latitud",
     "longitud",
